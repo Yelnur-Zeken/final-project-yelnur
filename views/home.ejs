@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+        /* Body and container styling */
+        body {
+            background-color: #f0f4f8;  /* Light gray background */
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            color: #495057;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Styling for the upload form */
+        #photoUrlForm {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        #photoUrlForm input {
+            margin: 10px;
+            padding: 12px;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        #photoUrlForm button {
+            padding: 12px 30px;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        #photoUrlForm button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Carousel Styles */
+        .carousel-inner {
+            position: relative;
+            max-height: 500px; /* Set a max height for the images */
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;  /* Crop images without distorting them */
+            border-radius: 8px;
+        }
+
+        /* Carousel Caption */
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .carousel-caption h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .carousel-caption p {
+            font-size: 1rem;
+        }
+
+        /* Customizing Carousel Controls */
+        .carousel-control-prev, .carousel-control-next {
+            font-size: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .carousel-control-prev-icon, .carousel-control-next-icon {
+            filter: invert(1);  /* Make the icons white */
+        }
+
+        .carousel-control-prev:hover, .carousel-control-next:hover {
+            background-color: rgba(0, 0, 0, 0.8); /* Darken on hover */
+        }
+
+        /* Adding some margin to carousel container */
+        .carousel {
+            margin-bottom: 50px;
+        }
+
+        /* Making Carousel Control Arrows Smaller */
+        .carousel-control-prev,
+        .carousel-control-next {
+            padding: 15px;
+            font-size: 25px;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Photo Gallery</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/financial">Financial Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/news">News</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Welcome to the Photo Gallery</h1>
+
+        <!-- Form to upload photo via URL -->
+        <form id="photoUrlForm">
+            <input type="text" id="photoUrl" placeholder="Enter image URL" required />
+            <input type="text" id="title" placeholder="Enter photo title" required />
+            <input type="text" id="description" placeholder="Enter photo description" required />
+            <button type="submit">Add Photo</button>
+        </form>
+
+        <!-- Photo Carousel -->
+        <h2>Photo Carousel</h2>
+        <div id="photoCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+    <% photos.forEach((photo, index) => { %>
+        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+            <img src="<%= photo.url %>" alt="<%= photo.title %>">
+            <div class="carousel-caption">
+                <h3><%= photo.title %></h3>
+                <p><%= photo.description %></p>
+            </div>
+        </div>
+    <% }) %>
+</div>
+
+
+            <!-- Carousel controls -->
+            <a class="carousel-control-prev" href="#photoCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#photoCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("photoUrlForm").addEventListener("submit", function(e) {
+            e.preventDefault(); // Prevent form from submitting normally
+
+            const imageUrl = document.getElementById("photoUrl").value;
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+
+            if (!imageUrl || !title || !description) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Send the data to the server
+            fetch("/upload-photo-url", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    title: title,
+                    description: description,
+                    photoUrl: imageUrl
+                })
+            })
+            .then(response => response.json())  // Parse JSON response
+            .then(data => {
+                if (data.success) {
+                    // If successful, add the new photo to the carousel
+                    const carouselInner = document.querySelector(".carousel-inner");
+
+                    // Check if carouselInner exists
+                    if (carouselInner) {
+                        const newItem = document.createElement("div");
+                        newItem.classList.add("carousel-item");
+                        newItem.innerHTML = `
+                            <img src="${data.photoUrl}" alt="${title}">
+                            <div class="carousel-caption">
+                                <h3>${title}</h3>
+                                <p>${description}</p>
+                            </div>
+                        `;
+                        carouselInner.appendChild(newItem);
+
+                        // Activate the first item (set it to active)
+                        if (carouselInner.children.length === 1) {
+                            newItem.classList.add("active");
+                        }
+                    } else {
+                        console.error("Carousel inner container not found!");
+                    }
+                } else {
+                    alert(data.message);  // Show error message if any
+                }
+            })
+            .catch(error => {
+                console.error("Error uploading photo:", error);
+                alert("An error occurred. Please try again.");
+            });
+
+            // Clear form fields after submission
+            document.getElementById("photoUrl").value = "";
+            document.getElementById("title").value = "";
+            document.getElementById("description").value = "";
+        });
+    </script>
+
+</body>
+</html>
